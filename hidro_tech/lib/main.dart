@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hidro_tech/pages/loginPage.dart';
+import 'package:hidro_tech/pages/signUpPage.dart';
 void main(){
   runApp(MyApp());
 }
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: loginPage(),
+      home: signUpPage(),
     );
   }
 }
