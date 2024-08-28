@@ -14,6 +14,32 @@ class _loginPageState extends State<loginPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        bottomNavigationBar: BottomAppBar(
+          padding: EdgeInsets.all(0),
+          height: 60,
+          surfaceTintColor: Colors.white,
+          child: Container(
+            
+            decoration: BoxDecoration(
+              border: Border.all(width: 3, color: Color(0xfff0f0f0))
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Ainda não tem uma conta?', style: TextStyle(color: Color(0xff333333),fontSize: 16,),),
+                TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Cadastre-se',
+                      style: TextStyle(
+                        color: Color(0xff2563EB),
+                        fontSize: 16,
+                      ),
+                    ),),
+              ],
+            ),
+          ),
+        ), 
         body: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -42,16 +68,15 @@ class _loginPageState extends State<loginPage> {
                 TextField(
                   style: GoogleFonts.poppins(),
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.email_outlined),
-                    hintText: 'Escreva seu E-mail',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
-                    ),
-                    filled: true,
-                    fillColor: Color(0xffd6d6d6),
-                    contentPadding: EdgeInsets.symmetric(vertical: 15)
-                  ),
+                      prefixIcon: Icon(Icons.email_outlined),
+                      hintText: 'Escreva seu E-mail',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
+                      filled: true,
+                      fillColor: Color(0xffd6d6d6),
+                      contentPadding: EdgeInsets.symmetric(vertical: 15)),
                 ),
                 SizedBox(
                   height: 13,
@@ -99,9 +124,7 @@ class _loginPageState extends State<loginPage> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        
                         onPressed: () {},
-                        
                         child: Text(
                           'Entrar',
                           style: GoogleFonts.poppins(
@@ -110,15 +133,14 @@ class _loginPageState extends State<loginPage> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(
-                            0xFF2563EB,
-                          ),
-                          padding: EdgeInsets.symmetric(vertical: 15,),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))
-                          
-                        ),
-                        
-                        
+                            backgroundColor: Color(
+                              0xFF2563EB,
+                            ),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 15,
+                            ),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12))),
                       ),
                     ),
                   ],
