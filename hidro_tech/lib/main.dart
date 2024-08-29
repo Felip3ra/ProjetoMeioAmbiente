@@ -4,6 +4,7 @@ import 'package:hidro_tech/pages/signUpPage.dart';
 import 'package:hidro_tech/pages/passwordPage.dart';
 import 'package:hidro_tech/pages/codePage.dart';
 import 'package:hidro_tech/pages/newPasswordPage.dart';
+import 'package:hidro_tech/pages/homePage.dart';
 void main(){
   runApp(MyApp());
 }
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: newPasswordPage(),
+      home: homePage(),
     );
   }
 }
