@@ -46,7 +46,7 @@ class _newPasswordPageState extends State<newPasswordPage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0,),
+                        padding: const EdgeInsets.symmetric(vertical: 5.0,),
                         child: Text(
                           'Agora, digite uma senha que seja fácil de lembrar e que tenha entra 6 e 8 caractéres ou números.',
                           style: GoogleFonts.poppins(
