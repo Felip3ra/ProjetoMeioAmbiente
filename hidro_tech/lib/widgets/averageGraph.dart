@@ -1,21 +1,47 @@
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class averageGraph extends StatelessWidget {
   const averageGraph();
 
   @override
   Widget build(BuildContext context) {
-    return BarChart(
-      BarChartData(
-        barTouchData: barTouchData,
-        titlesData: titlesData,
-        borderData: borderData,
-        barGroups: barGroups,
-        gridData: const FlGridData(show: false),
-        alignment: BarChartAlignment.spaceAround,
-        maxY: 20,
+    return Container(
+      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+      padding: EdgeInsets.symmetric(vertical: 10,),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(width: 2, color: Color(0xffEFEFEF),),
+        color: Colors.white
+      ),
+      child: AspectRatio(
+        aspectRatio: 1.6,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Média de fluxo de água', style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),),),
+              ],
+            ),
+            Expanded(
+              child: BarChart(
+                BarChartData(
+                  barTouchData: barTouchData,
+                  titlesData: titlesData,
+                  borderData: borderData,
+                  barGroups: barGroups,
+                  gridData: const FlGridData(show: false),
+                  alignment: BarChartAlignment.spaceAround,
+                  maxY: 20,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
