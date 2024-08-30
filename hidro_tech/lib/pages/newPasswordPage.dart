@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hidro_tech/pages/codePage.dart';
 
 class newPasswordPage extends StatefulWidget {
   const newPasswordPage({super.key});
@@ -112,7 +113,14 @@ class _newPasswordPageState extends State<newPasswordPage> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => codePage(),
+                            ),
+                          );
+                        },
                         child: Text(
                           'Atualizar',
                           style: GoogleFonts.poppins(

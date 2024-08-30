@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hidro_tech/pages/homePage.dart';
+import 'package:hidro_tech/pages/loginPage.dart';
 
 class profilePage extends StatefulWidget {
   const profilePage({super.key});
@@ -14,27 +16,22 @@ class _profilePageState extends State<profilePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          shape: Border(
-            bottom: BorderSide(
-              width: 1,
-              color: Color(0xffF0F0F0),
-            ),
-          ),
           leading: IconButton(
-            onPressed: () {},
-            icon: Image.asset('assets/logo2.png'),
+            onPressed: () {
+              Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => homePage(),
+                            ),
+                          );
+            },
+            icon: Icon(Icons.arrow_back_ios_outlined),
           ),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 2,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.hardware_outlined), label: 'Connect'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined), label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.assessment_outlined), label: 'Graphs'),
-          ],
+          title: Text(
+            'Retornar ao Inicio',
+            style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 16)),
+          ),
+          backgroundColor: Colors.white,
         ),
         body: Center(
           child: Padding(
@@ -141,14 +138,16 @@ class _profilePageState extends State<profilePage> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(
-                              0xFF2563EB,
-                            ),
-                            padding: EdgeInsets.symmetric(
-                              vertical: 15,
-                            ),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),),),
+                          backgroundColor: Color(
+                            0xFF2563EB,
+                          ),
+                          padding: EdgeInsets.symmetric(
+                            vertical: 15,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -160,7 +159,15 @@ class _profilePageState extends State<profilePage> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => loginPage(),
+                            ),
+                          );
+                        },
                         child: Text(
                           'Sair da conta',
                           style: GoogleFonts.poppins(
@@ -177,7 +184,10 @@ class _profilePageState extends State<profilePage> {
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
-                            side: BorderSide(width: 1.5, color: Color(0xFF2563EB),),
+                            side: BorderSide(
+                              width: 1.5,
+                              color: Color(0xFF2563EB),
+                            ),
                           ),
                         ),
                       ),

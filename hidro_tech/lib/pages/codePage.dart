@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hidro_tech/pages/loginPage.dart';
 
 class codePage extends StatefulWidget {
   const codePage({super.key});
@@ -154,7 +155,14 @@ class _codePageState extends State<codePage> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => loginPage(),
+                            ),
+                          );
+                        },
                         child: Text(
                           'Validar',
                           style: GoogleFonts.poppins(

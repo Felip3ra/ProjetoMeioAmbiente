@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hidro_tech/pages/loginPage.dart';
+import 'package:hidro_tech/pages/newPasswordPage.dart';
 
 class passwordPage extends StatefulWidget {
   const passwordPage({super.key});
@@ -15,7 +17,17 @@ class _passwordPageState extends State<passwordPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: Icon(Icons.arrow_back_ios_outlined),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => loginPage(),
+                            ),
+                          );
+            },
+            icon: Icon(Icons.arrow_back_ios_outlined),
+          ),
           title: Text('Retornar ao login', style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 16)),),
           backgroundColor: Colors.white,
         ),
@@ -81,7 +93,14 @@ class _passwordPageState extends State<passwordPage> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => newPasswordPage(),
+                            ),
+                          );
+                        },
                         child: Text(
                           'Envie o E-mail',
                           style: GoogleFonts.poppins(

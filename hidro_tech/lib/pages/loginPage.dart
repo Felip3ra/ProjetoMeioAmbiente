@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hidro_tech/pages/homePage.dart';
+import 'package:hidro_tech/pages/passwordPage.dart';
+import 'package:hidro_tech/pages/signUpPage.dart';
 
 class loginPage extends StatefulWidget {
   const loginPage({super.key});
@@ -10,6 +13,8 @@ class loginPage extends StatefulWidget {
 }
 
 class _loginPageState extends State<loginPage> {
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -17,29 +22,41 @@ class _loginPageState extends State<loginPage> {
         bottomNavigationBar: BottomAppBar(
           padding: EdgeInsets.all(0),
           height: 60,
-          surfaceTintColor: Colors.white,
+          color: Colors.white,
           child: Container(
-            
             decoration: BoxDecoration(
-              border: Border.all(width: 3, color: Color(0xfff0f0f0))
-            ),
+                border: Border.all(width: 3, color: Color(0xfff0f0f0))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Ainda não tem uma conta?', style: TextStyle(color: Color(0xff333333),fontSize: 16,),),
+                Text(
+                  'Ainda não tem uma conta?',
+                  style: TextStyle(
+                    color: Color(0xff333333),
+                    fontSize: 16,
+                  ),
+                ),
                 TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Cadastre-se',
-                      style: TextStyle(
-                        color: Color(0xff2563EB),
-                        fontSize: 16,
-                      ),
-                    ),),
+                  onPressed: () {
+                    Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => signUpPage(),
+                            ),
+                          );
+                  },
+                  child: Text(
+                    'Cadastre-se',
+                    style: TextStyle(
+                      color: Color(0xff2563EB),
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-        ), 
+        ),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -66,6 +83,7 @@ class _loginPageState extends State<loginPage> {
                   ),
                 ),
                 TextField(
+                  controller: email,
                   style: GoogleFonts.poppins(),
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.email_outlined),
@@ -82,6 +100,7 @@ class _loginPageState extends State<loginPage> {
                   height: 13,
                 ),
                 TextField(
+                  controller: password,
                   style: GoogleFonts.poppins(
                       textStyle: TextStyle(
                     color: Color(0xff333333),
@@ -107,7 +126,14 @@ class _loginPageState extends State<loginPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => passwordPage(),
+                            ),
+                          );
+                        },
                         child: Text(
                           'Esqueçeu sua senha?',
                           style: TextStyle(
@@ -124,7 +150,14 @@ class _loginPageState extends State<loginPage> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => homePage(),
+                            ),
+                          );
+                        },
                         child: Text(
                           'Entrar',
                           style: GoogleFonts.poppins(

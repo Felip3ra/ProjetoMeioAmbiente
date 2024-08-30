@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hidro_tech/pages/loginPage.dart';
 
 class signUpPage extends StatefulWidget {
   const signUpPage({super.key});
@@ -28,7 +29,14 @@ class _signUpPageState extends State<signUpPage> {
               children: [
                 Text('Já possui uma conta?', style: TextStyle(color: Color(0xff333333),fontSize: 16,),),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => loginPage(),
+                            ),
+                          );
+                    },
                     child: Text(
                       'Entrar',
                       style: TextStyle(
@@ -119,7 +127,9 @@ class _signUpPageState extends State<signUpPage> {
                     fillColor: Color(0xffd6d6d6),
                     contentPadding: EdgeInsets.symmetric(vertical: 15),
                     suffixIcon: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        
+                      },
                       icon: Icon(
                         Icons.remove_red_eye_outlined,
                       ),
@@ -134,7 +144,14 @@ class _signUpPageState extends State<signUpPage> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => loginPage(),
+                            ),
+                          );
+                        },
                         child: Text(
                           'Cadastrar',
                           style: GoogleFonts.poppins(

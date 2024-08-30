@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:hidro_tech/widgets/graphs.dart';
+import 'package:hidro_tech/pages/connectPage.dart';
+import 'package:hidro_tech/pages/graphsPage.dart';
 import 'package:hidro_tech/widgets/hardwareStatus.dart';
 import 'package:hidro_tech/widgets/averageGraph.dart';
 import 'package:hidro_tech/widgets/currentFlow.dart';
-import 'package:hidro_tech/widgets/selectButtom.dart';
 
-class graphsPage extends StatefulWidget {
-  graphsPage({super.key});
+class homePageBehind extends StatefulWidget {
+  homePageBehind({super.key});
 
   @override
-  State<graphsPage> createState() => _graphsPageState();
+  State<homePageBehind> createState() => _homePageBehindState();
 }
 
-class _graphsPageState extends State<graphsPage> {
+class _homePageBehindState extends State<homePageBehind> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Selectbuttom(),
-              graphs(),
+              hardwareStatus(),
+              averageGraph(),
+              Currentflow(),
             ],
           ),
         ),
