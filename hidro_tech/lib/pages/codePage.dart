@@ -16,9 +16,11 @@ class _codePageState extends State<codePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: Icon(Icons.arrow_back_ios_outlined),
+          leading: IconButton(onPressed: (){
+            Navigator.pop(context);
+          }, icon: Icon(Icons.arrow_back_ios_outlined)),
           title: Text(
-            'Retornar ao login',
+            'Retornar ao escolha sua senha',
             style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 16)),
           ),
           backgroundColor: Colors.white,
@@ -76,7 +78,7 @@ class _codePageState extends State<codePage> {
                         maxLength: 1,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
-                          counterText: '',
+                            counterText: '',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide.none,
@@ -93,7 +95,7 @@ class _codePageState extends State<codePage> {
                         maxLength: 1,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
-                          counterText: '',
+                            counterText: '',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide.none,
@@ -110,7 +112,7 @@ class _codePageState extends State<codePage> {
                         maxLength: 1,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
-                          counterText: '',
+                            counterText: '',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide.none,
@@ -127,7 +129,7 @@ class _codePageState extends State<codePage> {
                         maxLength: 1,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
-                          counterText: '',
+                            counterText: '',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide.none,

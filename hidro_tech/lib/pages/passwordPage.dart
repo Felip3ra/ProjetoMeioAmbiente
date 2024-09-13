@@ -19,12 +19,7 @@ class _passwordPageState extends State<passwordPage> {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => loginPage(),
-                            ),
-                          );
+              Navigator.pop(context);
             },
             icon: Icon(Icons.arrow_back_ios_outlined),
           ),

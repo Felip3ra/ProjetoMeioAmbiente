@@ -30,12 +30,7 @@ class _signUpPageState extends State<signUpPage> {
                 Text('Já possui uma conta?', style: TextStyle(color: Color(0xff333333),fontSize: 16,),),
                 TextButton(
                     onPressed: () {
-                      Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => loginPage(),
-                            ),
-                          );
+                      Navigator.pop(context);
                     },
                     child: Text(
                       'Entrar',
@@ -145,12 +140,7 @@ class _signUpPageState extends State<signUpPage> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => loginPage(),
-                            ),
-                          );
+                          Navigator.pop(context);
                         },
                         child: Text(
                           'Cadastrar',
