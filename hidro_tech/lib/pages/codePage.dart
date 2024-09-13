@@ -17,7 +17,10 @@ class _codePageState extends State<codePage> {
       child: Scaffold(
         appBar: AppBar(
           leading: Icon(Icons.arrow_back_ios_outlined),
-          title: Text('Retornar ao login', style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 16)),),
+          title: Text(
+            'Retornar ao login',
+            style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 16)),
+          ),
           backgroundColor: Colors.white,
         ),
         body: Center(
@@ -47,7 +50,9 @@ class _codePageState extends State<codePage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0,),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10.0,
+                        ),
                         child: Text(
                           'Um email com o código de segurança foi enviado para felipesantanasantos1812@gmail.com',
                           style: GoogleFonts.poppins(
@@ -68,10 +73,10 @@ class _codePageState extends State<codePage> {
                       width: 56,
                       child: TextField(
                         style: GoogleFonts.poppins(),
-                        
+                        maxLength: 1,
+                        textAlign: TextAlign.center,
                         decoration: InputDecoration(
-                          
-                            
+                          counterText: '',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide.none,
@@ -85,10 +90,10 @@ class _codePageState extends State<codePage> {
                       width: 56,
                       child: TextField(
                         style: GoogleFonts.poppins(),
-                        
+                        maxLength: 1,
+                        textAlign: TextAlign.center,
                         decoration: InputDecoration(
-                          
-                            
+                          counterText: '',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide.none,
@@ -102,10 +107,10 @@ class _codePageState extends State<codePage> {
                       width: 56,
                       child: TextField(
                         style: GoogleFonts.poppins(),
-                        
+                        maxLength: 1,
+                        textAlign: TextAlign.center,
                         decoration: InputDecoration(
-                          
-                            
+                          counterText: '',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide.none,
@@ -119,10 +124,10 @@ class _codePageState extends State<codePage> {
                       width: 56,
                       child: TextField(
                         style: GoogleFonts.poppins(),
-                        
+                        maxLength: 1,
+                        textAlign: TextAlign.center,
                         decoration: InputDecoration(
-                          
-                            
+                          counterText: '',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide.none,
