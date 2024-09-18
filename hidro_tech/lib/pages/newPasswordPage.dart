@@ -17,11 +17,15 @@ class _newPasswordPageState extends State<newPasswordPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(onPressed: (){
-            
-                          Navigator.pop(context);
-          }, icon: Icon(Icons.arrow_back_ios_outlined)),
-          title: Text('Retornar ao esqueçeu sua senha', style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 16)),),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.arrow_back_ios_outlined)),
+          title: Text(
+            'Retornar ao esqueçeu sua senha',
+            style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 16)),
+          ),
           backgroundColor: Colors.white,
         ),
         body: Center(
@@ -51,7 +55,9 @@ class _newPasswordPageState extends State<newPasswordPage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5.0,),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 5.0,
+                        ),
                         child: Text(
                           'Agora, digite uma senha que seja fácil de lembrar e que tenha entra 6 e 8 caractéres ou números.',
                           style: GoogleFonts.poppins(
@@ -67,9 +73,10 @@ class _newPasswordPageState extends State<newPasswordPage> {
                 ),
                 TextField(
                   style: GoogleFonts.poppins(
-                      textStyle: TextStyle(
-                    color: Color(0xff333333),
-                  ),),
+                    textStyle: TextStyle(
+                      color: Color(0xff333333),
+                    ),
+                  ),
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.lock_outline_rounded),
                     hintText: 'Escreva sua senha',
@@ -87,12 +94,15 @@ class _newPasswordPageState extends State<newPasswordPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 13,),
+                SizedBox(
+                  height: 13,
+                ),
                 TextField(
                   style: GoogleFonts.poppins(
-                      textStyle: TextStyle(
-                    color: Color(0xff333333),
-                  ),),
+                    textStyle: TextStyle(
+                      color: Color(0xff333333),
+                    ),
+                  ),
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.lock_outline_rounded),
                     hintText: 'Confirme sua senha',
