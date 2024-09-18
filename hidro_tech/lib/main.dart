@@ -8,8 +8,13 @@ import 'package:hidro_tech/pages/codePage.dart';
 import 'package:hidro_tech/pages/newPasswordPage.dart';
 import 'package:hidro_tech/pages/homePage.dart';
 import 'package:hidro_tech/pages/connectPage.dart';
-
-void main(){
+import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
