@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hidro_tech/pages/homePage.dart';
 import 'package:hidro_tech/pages/passwordPage.dart';
 import 'package:hidro_tech/pages/signUpPage.dart';
+import 'package:hidro_tech/service/autentication.dart';
 
 class loginPage extends StatefulWidget {
   const loginPage({super.key});
@@ -20,6 +21,9 @@ class _loginPageState extends State<loginPage> {
   String _senha = '123';
   bool _validate = false;
   bool pswd = true;
+
+  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
