@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hidro_tech/pages/homePage.dart';
 import 'package:hidro_tech/pages/loginPage.dart';
 import 'package:hidro_tech/service/autentication.dart';
 import 'package:hidro_tech/widgets/snackbar.dart';
-
 
 class signUpPage extends StatefulWidget {
   const signUpPage({super.key});
@@ -14,7 +14,6 @@ class signUpPage extends StatefulWidget {
 }
 
 class _signUpPageState extends State<signUpPage> {
-
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   Autentication _authService = Autentication();
@@ -28,29 +27,34 @@ class _signUpPageState extends State<signUpPage> {
           height: 60,
           surfaceTintColor: Colors.white,
           child: Container(
-            
             decoration: BoxDecoration(
-              border: Border.all(width: 3, color: Color(0xfff0f0f0))
-            ),
+                border: Border.all(width: 3, color: Color(0xfff0f0f0))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Já possui uma conta?', style: TextStyle(color: Color(0xff333333),fontSize: 16,),),
+                Text(
+                  'Já possui uma conta?',
+                  style: TextStyle(
+                    color: Color(0xff333333),
+                    fontSize: 16,
+                  ),
+                ),
                 TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      'Entrar',
-                      style: TextStyle(
-                        color: Color(0xff2563EB),
-                        fontSize: 16,
-                      ),
-                    ),),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'Entrar',
+                    style: TextStyle(
+                      color: Color(0xff2563EB),
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-        ), 
+        ),
         body: Center(
           child: Form(
             key: _formkey,
@@ -84,7 +88,7 @@ class _signUpPageState extends State<signUpPage> {
                     validator: (email) {
                       if (email == null || email.isEmpty) {
                         return "Por favor digite seu email!";
-                      } 
+                      }
                       return null;
                     },
                     decoration: InputDecoration(
@@ -98,7 +102,6 @@ class _signUpPageState extends State<signUpPage> {
                         fillColor: Color(0xffd6d6d6),
                         contentPadding: EdgeInsets.symmetric(vertical: 15)),
                   ),
-                  
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 13.0),
                     child: TextFormField(
@@ -108,11 +111,11 @@ class _signUpPageState extends State<signUpPage> {
                       )),
                       controller: password,
                       validator: (senha) {
-                      if (senha == null || senha.isEmpty) {
-                        return "Por favor digite sua senha!";
-                      } 
-                      return null;
-                    },
+                        if (senha == null || senha.isEmpty) {
+                          return "Por favor digite sua senha!";
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.lock_outline_rounded),
                         hintText: 'Escreva sua senha',
@@ -139,7 +142,7 @@ class _signUpPageState extends State<signUpPage> {
                     validator: (senha) {
                       if (senha == null || senha.isEmpty) {
                         return "Por favor digite sua senha novamente!";
-                      } 
+                      }
                       return null;
                     },
                     decoration: InputDecoration(
@@ -152,16 +155,13 @@ class _signUpPageState extends State<signUpPage> {
                       fillColor: Color(0xffd6d6d6),
                       contentPadding: EdgeInsets.symmetric(vertical: 15),
                       suffixIcon: IconButton(
-                        onPressed: () {
-                          
-                        },
+                        onPressed: () {},
                         icon: Icon(
                           Icons.remove_red_eye_outlined,
                         ),
                       ),
                     ),
                   ),
-                  
                   SizedBox(
                     height: 40,
                   ),
@@ -169,19 +169,28 @@ class _signUpPageState extends State<signUpPage> {
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: (){
-                            if(_formkey.currentState!.validate()){
-                              _authService.cadastrarUsuario(email: email.text, senha: password.text).then((String? erro){
+                          onPressed: () {
+                            if (_formkey.currentState!.validate()) {
+                              _authService
+                                  .cadastrarUsuario(
+                                      email: email.text, senha: password.text)
+                                  .then((String? erro) {
                                 if (erro != null) {
                                   showSnackBar(context: context, texto: erro);
-                                }
-                                else{
-                                  showSnackBar(context: context, texto: "Cadastro efetuado com sucesso!", isErro: false);
+                                } else {
+                                  showSnackBar(
+                                      context: context,
+                                      texto: "Cadastro efetuado com sucesso!",
+                                      isErro: false);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => homePage(),
+                                    ),
+                                  );
                                 }
                               });
-                              
                             }
-                            
                           },
                           child: Text(
                             'Cadastrar',

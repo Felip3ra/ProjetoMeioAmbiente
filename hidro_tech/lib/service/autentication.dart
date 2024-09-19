@@ -15,5 +15,31 @@ class Autentication {
     }
     
   }
+
+  Future<String?> loginUsers({required String email, required String password}) async{
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      return e.message;
+    }
+  }
+
+  Future<void> deslogar()async{
+    return _firebaseAuth.signOut();
+  }
+
+  Future<String?> changeEmailAndPassword({required String email, required password}) async{
+    var user = _firebaseAuth.currentUser;
+    try {
+      await user?.verifyBeforeUpdateEmail(email);
+      await user?.updatePassword(password);
+    } on FirebaseAuthException catch (e) {
+      return e.message;
+    }
+  }
+  
+  
+  
+
   
 }

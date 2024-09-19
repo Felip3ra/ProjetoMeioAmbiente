@@ -5,6 +5,7 @@ import 'package:hidro_tech/pages/homePage.dart';
 import 'package:hidro_tech/pages/passwordPage.dart';
 import 'package:hidro_tech/pages/signUpPage.dart';
 import 'package:hidro_tech/service/autentication.dart';
+import 'package:hidro_tech/widgets/snackbar.dart';
 
 class loginPage extends StatefulWidget {
   const loginPage({super.key});
@@ -17,11 +18,9 @@ class _loginPageState extends State<loginPage> {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final _formkey = GlobalKey<FormState>();
-  String _email = 'felipe';
-  String _senha = '123';
   bool _validate = false;
   bool pswd = true;
-
+  Autentication _authService = Autentication();
   
 
   @override
@@ -184,14 +183,14 @@ class _loginPageState extends State<loginPage> {
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () async{
+                          onPressed: () {
                             if (_formkey.currentState!.validate()) {
-                              Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => homePage(),
-                              ),
-                            );
+                              _authService.loginUsers(email: email.text, password: password.text).then((String? erro){
+                                if (erro != null) {
+                                  showSnackBar(context: context, texto: erro);
+                                }
+                              });
+                              
                             }
                             
                           },

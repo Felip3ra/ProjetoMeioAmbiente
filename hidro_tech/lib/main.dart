@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hidro_tech/pages/graphsPage.dart';
 import 'package:hidro_tech/pages/loginPage.dart';
@@ -25,7 +26,23 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: loginPage(),
+      home: Roter(),
     );
+  }
+}
+
+class Roter extends StatelessWidget {
+  const Roter({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(stream: FirebaseAuth.instance.userChanges(),builder: (context, snapshot){
+      if (snapshot.hasData) {
+        return homePage();
+      }
+      else{
+        return loginPage();
+      }
+    });
   }
 }
