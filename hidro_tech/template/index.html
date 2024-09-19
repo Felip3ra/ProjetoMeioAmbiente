@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperação de senha</title>
+
+    <style>
+        *{
+            
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: "Roboto",sans-serif;
+        }
+        #container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        h1{
+            text-align: center;
+            margin-block: 4rem;
+            color: black;
+        }
+        
+        form{
+            display: flex;
+            padding-inline: 5rem;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        form .email-container{
+            display: flex;
+            flex-direction: column;
+        }
+        .email-container label{
+            margin-bottom: .5rem;
+        }
+        .email-container input{
+            outline: none;
+            border: 1px solid black;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 1rem;
+        }
+        #logo{
+            width: 157px;
+            height: 156px;
+            
+        }
+        
+        #btn-envio{
+            
+            border: none;
+            color: white;
+            background-color: #2563EB;
+            padding-block: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 1rem;
+            cursor: pointer;
+
+            transition: background-color 0.2s;
+        }
+        
+        
+    </style>
+</head>
+<body>
+        <div id="container">
+        <img id="logo" src="../assets/logo1.png" alt=""></div>
+            <h1>Recuperação de senha</h1>
+        <form action="">
+            
+
+            <div class="email-container">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" placeholder="Digite seu email">
+                
+            </div>
+
+            <input type="submit" value="Enviar" id="btn-envio"> 
+        </form>
+    
+</body>
+</html>
