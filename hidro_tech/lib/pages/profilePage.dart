@@ -6,6 +6,7 @@ import 'package:hidro_tech/pages/homePage.dart';
 import 'package:hidro_tech/pages/loginPage.dart';
 import 'package:hidro_tech/service/autentication.dart';
 import 'package:hidro_tech/widgets/snackbar.dart';
+import 'package:hidro_tech/main.dart';
 
 class profilePage extends StatefulWidget {
   const profilePage({super.key});
@@ -196,7 +197,7 @@ class _profilePageState extends State<profilePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => loginPage(),
+                                builder: (context) => Roter(),
                               ),
                             );
                           },
