@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "310693586010",
+    "project_id": "hidrotech-3f389",
+    "storage_bucket": "hidrotech-3f389.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310693586010:android:1f6d75ef630494e7872463",
+        "android_client_info": {
+          "package_name": "com.example.hidro_tech"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFWrHb8sjXTlraqzdESvzpYrgpHOJoJ0k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
