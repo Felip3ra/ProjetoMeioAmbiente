@@ -154,7 +154,9 @@ class _connectPageState extends State<connectPage> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _startProvisioning();
+                        },
                         child: Text(
                           'Conectar',
                           style: GoogleFonts.poppins(

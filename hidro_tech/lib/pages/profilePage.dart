@@ -20,6 +20,7 @@ class _profilePageState extends State<profilePage> {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+  bool pswd = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -107,9 +108,13 @@ class _profilePageState extends State<profilePage> {
                       fillColor: Color(0xffd6d6d6),
                       contentPadding: EdgeInsets.symmetric(vertical: 15),
                       suffixIcon: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                          pswd = !pswd;
+                        });
+                        },
                         icon: Icon(
-                          Icons.remove_red_eye_outlined,
+                          pswd ? Icons.visibility_off_outlined:Icons.visibility_outlined,
                         ),
                       ),
                     ),

@@ -18,8 +18,7 @@ class _loginPageState extends State<loginPage> {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final _formkey = GlobalKey<FormState>();
-  bool _validate = false;
-  bool pswd = true;
+  bool pswd = false;
   Autentication _authService = Autentication();
   
 

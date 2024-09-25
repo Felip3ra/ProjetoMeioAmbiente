@@ -16,6 +16,7 @@ class signUpPage extends StatefulWidget {
 class _signUpPageState extends State<signUpPage> {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
+  bool pswd = false;
   Autentication _authService = Autentication();
   final _formkey = GlobalKey<FormState>();
   @override
@@ -105,6 +106,7 @@ class _signUpPageState extends State<signUpPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 13.0),
                     child: TextFormField(
+                      obscureText: pswd ? false : true,
                       style: GoogleFonts.poppins(
                           textStyle: TextStyle(
                         color: Color(0xff333333),
@@ -155,9 +157,15 @@ class _signUpPageState extends State<signUpPage> {
                       fillColor: Color(0xffd6d6d6),
                       contentPadding: EdgeInsets.symmetric(vertical: 15),
                       suffixIcon: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            pswd = !pswd;
+                          });
+                        },
                         icon: Icon(
-                          Icons.remove_red_eye_outlined,
+                          pswd
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined,
                         ),
                       ),
                     ),
