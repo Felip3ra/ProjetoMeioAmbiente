@@ -39,6 +39,7 @@ dependencies:
   fl_chart: ^0.69.0
   firebase_core: ^3.5.0
   firebase_auth: ^5.3.0
+  esp_smartconfig: ^2.0.4
 
 dev_dependencies:
   flutter_test:

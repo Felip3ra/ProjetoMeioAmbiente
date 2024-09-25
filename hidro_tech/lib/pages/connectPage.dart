@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:esp_smartconfig/esp_smartconfig.dart';
+
 class connectPage extends StatefulWidget {
   const connectPage({super.key});
 
@@ -8,6 +10,80 @@ class connectPage extends StatefulWidget {
 }
 
 class _connectPageState extends State<connectPage> {
+
+
+  final ssidController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  Future<void> _startProvisioning() async {
+    final provisioner = Provisioner.espTouch();
+
+    provisioner.listen((response) {
+      Navigator.of(context).pop(response);
+    });
+
+    provisioner.start(ProvisioningRequest.fromStrings(
+      ssid: ssidController.text,
+      bssid: '00:00:00:00:00:00',
+      password: passwordController.text,
+    ));
+
+    ProvisioningResponse? response = await showDialog<ProvisioningResponse>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Provisioning'),
+          content: const Text('Provisioning started. Please wait...'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Stop'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if(provisioner.running) {
+      provisioner.stop();
+    }
+
+    if (response != null) {
+      _onDeviceProvisioned(response);
+    }
+  }
+
+  _onDeviceProvisioned(ProvisioningResponse response) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Device provisioned'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text('Device successfully connected to the ${ssidController.text} network'),
+              SizedBox.fromSize(size: const Size.fromHeight(20)),
+              const Text('Device:'),
+              Text('IP: ${response.ipAddressText}'),
+              Text('BSSID: ${response.bssidText}'),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,8 +111,9 @@ class _connectPageState extends State<connectPage> {
                       ),
                     ),
                 ),
-                  TextField(
+                  TextFormField(
                   style: GoogleFonts.poppins(),
+                  controller: ssidController,
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.wifi),
                       hintText: 'Escreva seu SSID',
@@ -49,7 +126,8 @@ class _connectPageState extends State<connectPage> {
                       contentPadding: EdgeInsets.symmetric(vertical: 15)),
                 ),
                 SizedBox(height: 13,),
-                TextField(
+                TextFormField(
+                  controller: passwordController,
                   style: GoogleFonts.poppins(
                       textStyle: TextStyle(
                     color: Color(0xff333333),
@@ -102,5 +180,12 @@ class _connectPageState extends State<connectPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    ssidController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 }
