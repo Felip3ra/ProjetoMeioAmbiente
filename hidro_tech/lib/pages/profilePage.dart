@@ -117,28 +117,7 @@ class _profilePageState extends State<profilePage> {
                   SizedBox(
                     height: 13,
                   ),
-                  TextFormField(
-                    style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                      color: Color(0xff333333),
-                    )),
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.lock_outline_rounded),
-                      hintText: 'Confirme sua senha',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide.none),
-                      filled: true,
-                      fillColor: Color(0xffd6d6d6),
-                      contentPadding: EdgeInsets.symmetric(vertical: 15),
-                      suffixIcon: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.remove_red_eye_outlined,
-                        ),
-                      ),
-                    ),
-                  ),
+                  
                   SizedBox(
                     height: 20,
                   ),
