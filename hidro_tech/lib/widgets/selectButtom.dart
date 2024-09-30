@@ -21,12 +21,6 @@ class _SelectbuttomState extends State<Selectbuttom> {
       child: Row(
         children: [
           Expanded(
-            child: TextButton(
-              onPressed: () {},
-              child: Text('Hour'),
-            ),
-          ),
-          Expanded(
             child: Container(
               decoration: BoxDecoration(
                 border: Border.symmetric(

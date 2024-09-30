@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hidro_tech/pages/connectPage.dart';
 import 'package:hidro_tech/pages/graphsPage.dart';
 import 'package:hidro_tech/widgets/hardwareStatus.dart';
 import 'package:hidro_tech/widgets/averageGraph.dart';

@@ -25,24 +25,7 @@ class _profilePageState extends State<profilePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => homePage(),
-                            ),
-                          );
-            },
-            icon: Icon(Icons.arrow_back_ios_outlined),
-          ),
-          title: Text(
-            'Retornar ao Inicio',
-            style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 16)),
-          ),
-          backgroundColor: Colors.white,
-        ),
+        
         body: Center(
           child: Form(
             key: _formkey,

@@ -18,21 +18,24 @@ class _loginPageState extends State<loginPage> {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+  final _scrollController1 = ScrollController();
   bool pswd = false;
   Autentication _authService = Autentication();
-  
 
+  void _resetScrollPosition(ScrollController controller) {
+    controller.animateTo(0.0,
+        duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+  }
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        
         bottomNavigationBar: BottomAppBar(
           padding: EdgeInsets.all(0),
           height: 60,
           color: Colors.white,
           child: Container(
-            
             decoration: BoxDecoration(
                 border: Border.all(width: 3, color: Color(0xfff0f0f0))),
             child: Row(
@@ -67,7 +70,6 @@ class _loginPageState extends State<loginPage> {
           ),
         ),
         body: Center(
-          
           child: Form(
             key: _formkey,
             child: Padding(
@@ -95,12 +97,19 @@ class _loginPageState extends State<loginPage> {
                     ),
                   ),
                   TextFormField(
+                    scrollController: _scrollController1,
+                    onTap: () {
+                      email.selection = TextSelection.fromPosition(
+                  TextPosition(offset: 0),
+                );
+                    },
                     controller: email,
+                    maxLines: 1,
                     keyboardType: TextInputType.emailAddress,
                     validator: (email) {
                       if (email == null || email.isEmpty) {
                         return "Por favor digite seu email!";
-                      } 
+                      }
                       return null;
                     },
                     style: GoogleFonts.poppins(),
@@ -120,11 +129,11 @@ class _loginPageState extends State<loginPage> {
                   ),
                   TextFormField(
                     controller: password,
-                    obscureText: pswd ? false: true,
+                    obscureText: pswd ? false : true,
                     validator: (senha) {
                       if (senha == null || senha.isEmpty) {
                         return "Por favor digite sua senha!";
-                      } 
+                      }
                       return null;
                     },
                     style: GoogleFonts.poppins(
@@ -134,22 +143,22 @@ class _loginPageState extends State<loginPage> {
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.lock_outline_rounded),
                       hintText: 'Escreva sua senha',
-                      
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none),
                       filled: true,
-                      
                       fillColor: Color(0xffd6d6d6),
                       contentPadding: EdgeInsets.symmetric(vertical: 15),
                       suffixIcon: IconButton(
                         onPressed: () {
                           setState(() {
-                          pswd = !pswd;
-                        });
+                            pswd = !pswd;
+                          });
                         },
                         icon: Icon(
-                          pswd ? Icons.visibility_off_outlined:Icons.visibility_outlined,
+                          pswd
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined,
                         ),
                       ),
                     ),
@@ -184,14 +193,16 @@ class _loginPageState extends State<loginPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             if (_formkey.currentState!.validate()) {
-                              _authService.loginUsers(email: email.text, password: password.text).then((String? erro){
+                              _authService
+                                  .loginUsers(
+                                      email: email.text,
+                                      password: password.text)
+                                  .then((String? erro) {
                                 if (erro != null) {
                                   showSnackBar(context: context, texto: erro);
                                 }
                               });
-                              
                             }
-                            
                           },
                           child: Text(
                             'Entrar',

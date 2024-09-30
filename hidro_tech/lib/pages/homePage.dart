@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hidro_tech/pages/connectPage.dart';
 import 'package:hidro_tech/pages/graphsPage.dart';
 import 'package:hidro_tech/pages/homePageBehind.dart';
 import 'package:hidro_tech/pages/profilePage.dart';
@@ -26,19 +25,16 @@ class _homePageState extends State<homePage> {
             color: Color(0xffF0F0F0),
           ),
         ),
-        leading: IconButton(
-          onPressed: () {
-            
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => profilePage(),
-                ),
-              );
-            
-          },
-          icon: Image.asset('assets/logo2.png'),
-        ),
+        leading: _opcaoSelecionada == 0 ? Image.asset(
+                    'assets/logo2.png',
+                    width: 157,
+                    height: 156.47,
+                  ): Image.asset(
+                    'assets/logo1.png',
+                    width: 157,
+                    height: 156.47,
+                  )
+                  
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _opcaoSelecionada,
@@ -49,21 +45,21 @@ class _homePageState extends State<homePage> {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.hardware_outlined),
-            label: 'Connect',
+            icon: Icon(Icons.account_circle_outlined),
+            label: 'Perfil',
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined), label: 'Home'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.assessment_outlined), label: 'Graphs'),
+              icon: Icon(Icons.assessment_outlined), label: 'Gráficos'),
         ],
       ),
       body: IndexedStack(
         index: _opcaoSelecionada,
         children: [
-          connectPage(),
+          profilePage(),
           homePageBehind(),
-          graphsPage(),
+          GraphsPage(),
         ],
       ),
     );
