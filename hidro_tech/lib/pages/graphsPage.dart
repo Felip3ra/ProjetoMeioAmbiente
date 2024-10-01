@@ -22,6 +22,9 @@ class _GraphsPageState extends State<GraphsPage> {
   double? valor = 0;
   double? media = 0;
   double? total = 0;
+  double? litro = 0;
+  double? litroMedio = 0;
+  double? litroTotal = 0;
   late DatabaseReference
       yearMonthRef; // Referência ao caminho específico no Firebase
 
@@ -58,11 +61,14 @@ class _GraphsPageState extends State<GraphsPage> {
             // Se for um Map, mantém como está
             data = Map<String, dynamic>.from(snapshotValue as Map);
           }
-          for (var i = 1; i <= 31; i++) {
+          for (var i = 1; i <= data.length; i++) {
             media = media! + convertValue(data[i.toString()] ?? 0);
           }
           total = media;
           valor = convertValue(data[(now.day + 1).toString()] ?? 0);
+          litro = valor;
+          litroMedio = media!/data.length;
+          litroTotal = media;
           try {
             setState(() {
               valor = (valor! / 1000) * 5.38;
@@ -97,8 +103,10 @@ class _GraphsPageState extends State<GraphsPage> {
                   child:
                       Text('Nenhum dado disponível.')) // Caso não tenha dados
               : Column(
+  
                   children: [
                     Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
@@ -110,6 +118,7 @@ class _GraphsPageState extends State<GraphsPage> {
                         children: [
                           Expanded(
                             child: Container(
+                              
                               decoration: BoxDecoration(
                                 border: Border.symmetric(
                                   vertical: BorderSide(
@@ -120,7 +129,11 @@ class _GraphsPageState extends State<GraphsPage> {
                               ),
                               child: TextButton(
                                 onPressed: () {
-                                  setState(() {});
+                                  setState(() {
+                                    op = 0;
+                                    control = 0;
+                                    _controle = 0;
+                                  });
                                 },
                                 child: Text('Dia'),
                               ),
@@ -128,140 +141,255 @@ class _GraphsPageState extends State<GraphsPage> {
                           ),
                           Expanded(
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  op = 1;
+                                  control = 0;
+                                  _controle = 0;
+                                });
+                              },
                               child: Text('Mês'),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            width: 2,
-                            color: Color(0xffEFEFEF),
-                          ),
-                          color: Colors.white),
-                      child: AspectRatio(
-                        aspectRatio: 1.6,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        if (_controle != 0) {
-                                          _controle--;
-                                          control -= 4;
-                                        }
-                                      });
-                                    },
-                                    icon: Icon(Icons.arrow_back_ios_outlined)),
-                                Text(
-                                  'Setembro - 2024',
-                                  style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ),
-                                IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        if (_controle != 7 && op == 0) {
-                                          _controle++;
-                                          control += 4;
-                                        } else if (_controle != 7 && op == 1) {
-                                          _controle++;
-                                        } else if (_controle != 2 && op == 2) {
-                                          _controle++;
-                                        }
-
-                                        print(_controle);
-                                      });
-                                    },
-                                    icon:
-                                        Icon(Icons.arrow_forward_ios_outlined)),
-                              ],
+                    Expanded(
+                      child: Container(
+                        //margin: EdgeInsets.symmetric(horizontal: 10,),
+                        margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10,),
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              width: 2,
+                              color: Color(0xffEFEFEF),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Média de fluxo de água por Litro',
-                                  style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Expanded(
-                              child: BarChart(
-                                BarChartData(
-                                  barTouchData: barTouchData,
-                                  titlesData: titlesData,
-                                  borderData: borderData,
-                                  barGroups:
-                                      barGroups(), // Chama a função para obter os grupos de barras
-                                  gridData: const FlGridData(show: false),
-                                  alignment: BarChartAlignment.spaceAround,
-                                  maxY:
-                                      20, // Pode ser ajustado conforme necessário
-                                ),
-                              ),
-                            ),
-                            Container(
-                              child: Column(
+                            color: Colors.white),
+                        child: AspectRatio(
+                          aspectRatio: 1.6,
+                          child: Column(
+                            //crossAxisAlignment: CrossAxisAlignment.stretch,
+                            
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  SizedBox(
-                                    height: 20,
+                                  IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          if (_controle != 0) {
+                                            _controle--;
+                                            control -= 4;
+                                          }
+                                        });
+                                      },
+                                      icon: Icon(Icons.arrow_back_ios_outlined)),
+                                  Text(
+                                    'Setembro - 2024',
+                                    style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text("Hoje"),
-                                      Text("R\$${valor?.toStringAsFixed(2)}"),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text("Média"),
-                                      Text("R\$${media?.toStringAsFixed(2)}"),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text("Total"),
-                                      Text("R\$${total?.toStringAsFixed(2)}"),
-                                    ],
-                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          if (_controle != 7 && op == 0) {
+                                            _controle++;
+                                            control += 4;
+                                            print('to aqui $_controle');
+                                          } else if (_controle != 2 && op == 1) {
+                                            _controle++;
+                                            
+                                          } 
+                      
+                                          
+                                        });
+                                      },
+                                      icon:
+                                          Icon(Icons.arrow_forward_ios_outlined)),
                                 ],
                               ),
-                            )
-                          ],
+                              
+                      
+                              Expanded(
+                                child: BarChart(
+                                  BarChartData(
+                                    barTouchData: barTouchData,
+                                    titlesData: titlesData,
+                                    borderData: borderData,
+                                    barGroups:
+                                        barGroups(), // Chama a função para obter os grupos de barras
+                                    gridData: const FlGridData(show: false),
+                                    alignment: BarChartAlignment.spaceAround,
+                                    maxY:
+                                        20, // Pode ser ajustado conforme necessário
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text("Hoje"),
+                                        Text("R\$${valor?.toStringAsFixed(2)}"),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text("Média"),
+                                        Text("R\$${media?.toStringAsFixed(2)}"),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text("Total"),
+                                        Text("R\$${total?.toStringAsFixed(2)}"),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10,),
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              width: 2,
+                              color: Color(0xffEFEFEF),
+                            ),
+                            color: Colors.white),
+                        child: AspectRatio(
+                          aspectRatio: 1.6,
+                          child: Column(
+                            //crossAxisAlignment: CrossAxisAlignment.stretch,
+                            
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          if (_controle != 0) {
+                                            _controle--;
+                                            control -= 4;
+                                          }
+                                        });
+                                      },
+                                      icon: Icon(Icons.arrow_back_ios_outlined)),
+                                  Text(
+                                    'Setembro - 2024',
+                                    style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          if (_controle != 7 && op == 0) {
+                                            _controle++;
+                                            control += 4;
+                                          } else if (_controle != 2 && op == 1) {
+                                            _controle++;
+                                          } 
+                      
+                                          print(_controle);
+                                        });
+                                      },
+                                      icon:
+                                          Icon(Icons.arrow_forward_ios_outlined)),
+                                ],
+                              ),
+                              
+                              
+                              Expanded(
+                                child: BarChart(
+                                  BarChartData(
+                                    barTouchData: barTouchData,
+                                    titlesData: titlesData,
+                                    borderData: borderData,
+                                    barGroups:
+                                        barGroups(), // Chama a função para obter os grupos de barras
+                                    gridData: const FlGridData(show: false),
+                                    alignment: BarChartAlignment.spaceAround,
+                                    maxY:
+                                        20, // Pode ser ajustado conforme necessário
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text("Hoje"),
+                                        Text("${litro?.toStringAsFixed(2)}L"),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text("Média"),
+                                        Text("${litroMedio?.toStringAsFixed(2)}L"),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text("Total"),
+                                        Text("${litroTotal?.toStringAsFixed(2)}L"),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
     );
@@ -341,7 +469,7 @@ class _GraphsPageState extends State<GraphsPage> {
         break;
       case 3:
         if (op == 0) {
-          const valores = ['04', '08', '12', '16', '20', '24', '28', '-'];
+          const valores = ['04', '08', '12', '16', '20', '24', '28'];
           text = valores[_controle];
         } else if (op == 1) {
           const valores = ['04', '08', '12'];
@@ -450,8 +578,8 @@ class _GraphsPageState extends State<GraphsPage> {
         print("Valor antes da conversão: $value (Tipo: ${value.runtimeType})");
         double convertedValue = convertValue(value); // Converte o valor
         print("Valor convertido: $convertedValue");
-
-        groups.add(
+        if ((day != "32" && op == 0) || op == 1) {
+          groups.add(
           BarChartGroupData(
             x: i,
             barRods: [
@@ -463,6 +591,10 @@ class _GraphsPageState extends State<GraphsPage> {
             showingTooltipIndicators: [0],
           ),
         );
+        } else {
+          
+        }
+        
       }
     });
 
