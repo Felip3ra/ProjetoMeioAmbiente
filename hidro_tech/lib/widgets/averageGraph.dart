@@ -1,20 +1,92 @@
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'dart:math'; // Importar a biblioteca necessária
 
-class averageGraph extends StatelessWidget {
-  const averageGraph();
+class AverageGraph extends StatefulWidget {
+  const AverageGraph({super.key});
+
+  @override
+  State<AverageGraph> createState() => _AverageGraphState();
+}
+
+class _AverageGraphState extends State<AverageGraph> {
+  final DatabaseReference _databaseRef3 = FirebaseDatabase.instance.ref();
+  late DatabaseReference daysRef;
+  Map<String, dynamic> data3 = {};
+
+  @override
+  void initState() {
+    super.initState();
+    setupListener();
+  }
+
+  void setupListener() {
+    DateTime now = DateTime.now();
+    String year = now.year.toString();
+    String month = now.month.toString();
+
+    daysRef = _databaseRef3.child(year).child(month);
+
+    daysRef.onValue.listen((event) {
+      if (event.snapshot.exists) {
+        setState(() {
+          var snapshotValue = event.snapshot.value;
+          if (snapshotValue is List) {
+            data3 = Map<String, dynamic>.fromIterable(
+              snapshotValue.asMap().entries,
+              key: (entry) => (entry.key + 1).toString(),
+              value: (entry) => entry.value,
+            );
+          } else if (snapshotValue is Map) {
+            data3 = Map<String, dynamic>.from(snapshotValue as Map);
+          }
+        });
+      }
+    });
+  }
+
+  double convertValue(Object? value) {
+    if (value is Map<Object?, Object?>) {
+      var innerValue = value['dado'];
+      return convertValue(innerValue);
+    }
+
+    if (value == null) {
+      return 0;
+    }
+
+    if (value is int) {
+      return value.toDouble();
+    }
+
+    if (value is double) {
+      return value;
+    }
+
+    if (value is String) {
+      try {
+        return double.parse(value);
+      } catch (e) {
+        print("Falha ao converter string para double: $value");
+        return 0;
+      }
+    }
+
+    print("Tipo de valor não reconhecido: ${value.runtimeType}");
+    return 0;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-      padding: EdgeInsets.symmetric(vertical: 10,),
+      padding: EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(width: 2, color: Color(0xffEFEFEF),),
-        color: Colors.white
+        border: Border.all(width: 2, color: Color(0xffEFEFEF)),
+        color: Colors.white,
       ),
       child: AspectRatio(
         aspectRatio: 1.6,
@@ -24,7 +96,12 @@ class averageGraph extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Média de fluxo de água', style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),),),
+                Text(
+                  'Média de fluxo de água',
+                  style: GoogleFonts.poppins(
+                    textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                  ),
+                ),
               ],
             ),
             Expanded(
@@ -33,10 +110,10 @@ class averageGraph extends StatelessWidget {
                   barTouchData: barTouchData,
                   titlesData: titlesData,
                   borderData: borderData,
-                  barGroups: barGroups,
+                  barGroups: barGroups(),
                   gridData: const FlGridData(show: false),
                   alignment: BarChartAlignment.spaceAround,
-                  maxY: 20,
+                  maxY: getMaxY(),
                 ),
               ),
             ),
@@ -78,25 +155,25 @@ class averageGraph extends StatelessWidget {
     String text;
     switch (value.toInt()) {
       case 0:
-        text = 'Mn';
+        text = 'Seg';
         break;
       case 1:
-        text = 'Te';
+        text = 'Ter';
         break;
       case 2:
-        text = 'Wd';
+        text = 'Qua';
         break;
       case 3:
-        text = 'Tu';
+        text = 'Qui';
         break;
       case 4:
-        text = 'Fr';
+        text = 'Sex';
         break;
       case 5:
-        text = 'St';
+        text = 'Sáb';
         break;
       case 6:
-        text = 'Sn';
+        text = 'Dom';
         break;
       default:
         text = '';
@@ -142,77 +219,90 @@ class averageGraph extends StatelessWidget {
         end: Alignment.topCenter,
       );
 
-  List<BarChartGroupData> get barGroups => [
-        BarChartGroupData(
-          x: 0,
-          barRods: [
-            BarChartRodData(
-              toY: 8,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 1,
-          barRods: [
-            BarChartRodData(
-              toY: 10,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 2,
-          barRods: [
-            BarChartRodData(
-              toY: 14,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 3,
-          barRods: [
-            BarChartRodData(
-              toY: 15,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 4,
-          barRods: [
-            BarChartRodData(
-              toY: 13,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 5,
-          barRods: [
-            BarChartRodData(
-              toY: 10,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 6,
-          barRods: [
-            BarChartRodData(
-              toY: 16,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-      ];
-}
+  double getMaxY() {
+    // Retorna o máximo valor de Y com base nos dados
+    double maxY = 0;
+    for (var day in data3.values) {
+      maxY = max(maxY, convertValue(day));
+    }
+    return maxY + 5; // Adiciona um buffer
+  }
 
+  List<BarChartGroupData> barGroups() {
+    Map<String, double> dailyAverages = calculateDailyAverages();
+
+    return List.generate(7, (index) {
+      String weekday = _getWeekdayName(index + 1);
+      return BarChartGroupData(
+        x: index,
+        barRods: [
+          BarChartRodData(
+            toY: dailyAverages[weekday] ?? 0,
+            gradient: _barsGradient,
+          )
+        ],
+        showingTooltipIndicators: [0],
+      );
+    });
+  }
+
+  Map<String, double> calculateDailyAverages() {
+    Map<String, double> sums = {
+      'Seg': 0,
+      'Ter': 0,
+      'Qua': 0,
+      'Qui': 0,
+      'Sex': 0,
+      'Sáb': 0,
+      'Dom': 0,
+    };
+    Map<String, int> counts = {
+      'Seg': 0,
+      'Ter': 0,
+      'Qua': 0,
+      'Qui': 0,
+      'Sex': 0,
+      'Sáb': 0,
+      'Dom': 0,
+    };
+
+    data3.forEach((key, value) {
+      int dayOfWeek = int.tryParse(key) ?? 0;
+      if (dayOfWeek >= 1 && dayOfWeek <= 7) {
+        String weekday = _getWeekdayName(dayOfWeek);
+        double convertedValue = convertValue(value);
+        sums[weekday] = sums[weekday]! + convertedValue;
+        counts[weekday] = counts[weekday]! + 1;
+      }
+    });
+
+    // Calcula a média
+    Map<String, double> averages = {};
+    sums.forEach((key, value) {
+      averages[key] = counts[key] == 0 ? 0 : value / counts[key]!;
+    });
+
+    return averages;
+  }
+
+  String _getWeekdayName(int dayOfWeek) {
+    switch (dayOfWeek) {
+      case 1:
+        return 'Seg';
+      case 2:
+        return 'Ter';
+      case 3:
+        return 'Qua';
+      case 4:
+        return 'Qui';
+      case 5:
+        return 'Sex';
+      case 6:
+        return 'Sáb';
+      case 7:
+        return 'Dom';
+      default:
+        return '';
+    }
+  }
+}

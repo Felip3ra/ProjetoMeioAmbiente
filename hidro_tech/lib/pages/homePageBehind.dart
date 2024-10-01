@@ -21,8 +21,8 @@ class _homePageBehindState extends State<homePageBehind> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              hardwareStatus(),
-              averageGraph(),
+              Hardwarestatus(),
+              AverageGraph(),
               Currentflow(),
             ],
           ),
