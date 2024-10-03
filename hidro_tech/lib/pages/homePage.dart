@@ -19,20 +19,22 @@ class _homePageState extends State<homePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        
         shape: Border(
+          
           bottom: BorderSide(
+            
             width: 1,
             color: Color(0xffF0F0F0),
           ),
         ),
+        leadingWidth: 75,
         leading: _opcaoSelecionada == 0 ? Image.asset(
                     'assets/logo2.png',
-                    width: 157,
-                    height: 156.47,
+                    
                   ): Image.asset(
                     'assets/logo1.png',
-                    width: 157,
-                    height: 156.47,
+                    
                   )
                   
       ),

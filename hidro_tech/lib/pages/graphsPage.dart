@@ -4,7 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-
+import 'dart:async';
 int _controle = 0;
 int? op = 0;
 int control = 0;
@@ -20,11 +20,15 @@ class _GraphsPageState extends State<GraphsPage> {
   Map<String, dynamic> data = {}; // Armazena os dados lidos
   bool isLoading = true; // Flag para indicar carregamento
   double? valor = 0;
-  double? media = 0;
-  double? total = 0;
+  double media = 0;
+  double total = 0;
+  double totalEXB = 0;
   double? litro = 0;
   double? litroMedio = 0;
   double? litroTotal = 0;
+  bool op1 = true;
+  String label = '';
+  var mediaMes = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0];
   late DatabaseReference
       yearMonthRef; // Referência ao caminho específico no Firebase
 
@@ -33,20 +37,78 @@ class _GraphsPageState extends State<GraphsPage> {
     super.initState();
     setupListener(); // Configura o listener para dados em tempo real
   }
-
+  final ref = FirebaseDatabase.instance.ref();
+  Future getData() async{
+    for (var i = 1; i < 12; i++) {
+      final snapshot = await ref.child('2024/${i.toString()}/Total').get();
+      //final snapshot2 = await ref.child('2024/9/Total').get();
+      if (snapshot.exists) {
+          print(snapshot.value);
+          mediaMes[i] = convertValue(snapshot.value);
+          print(mediaMes[i]);
+      } else {
+          print('No data available.');
+          mediaMes[i] = 0;
+      }
+    }
+      
+    }
   // Função para configurar o listener em tempo real
   void setupListener() {
     DateTime now = DateTime.now();
     String year = now.year.toString();
     String month = now.month.toString();
 
+    switch (month) {
+      case '01':
+        label = "Janeiro - " + year;
+        break;
+      case '02':
+        label = "Fevereiro - " + year;
+        break;
+      case '03':
+        label = "Março - " + year;
+        break;
+      case '04':
+        label = "Abril - " + year;
+        break;
+      case '05':
+        label = "Maio - " + year;
+        break;
+      case '06':
+        label = "Junho - " + year;
+        break;
+      case '07':
+        label = "Julho - " + year;
+        break;
+      case '08':
+        label = "Agosto - " + year;
+        break;
+      case '09':
+        label = "Setembro - " + year;
+        break;
+      case '10':
+        label = "Outubro - " + year;
+        break;
+      case '11':
+        label = "Novembro - " + year;
+        break;
+      case '12':
+        label = "Dezembro - " + year;
+        break;  
+      default:
+    }
     // Caminho baseado no ano e mês
     yearMonthRef = _databaseRef.child(year).child(month);
+    
+    getData();
+    
 
     // Ouvinte em tempo real
     yearMonthRef.onValue.listen((event) {
       if (event.snapshot.exists) {
         setState(() {
+          
           var snapshotValue = event.snapshot.value;
 
           if (snapshotValue is List) {
@@ -62,9 +124,14 @@ class _GraphsPageState extends State<GraphsPage> {
             data = Map<String, dynamic>.from(snapshotValue as Map);
           }
           for (var i = 1; i <= data.length; i++) {
+            if(data["Total"] == i){
+              mediaMes[int.parse(month) - 1] = total;
+            }
             media = media! + convertValue(data[i.toString()] ?? 0);
           }
           total = media;
+           
+          totalEXB = total;
           valor = convertValue(data[(now.day + 1).toString()] ?? 0);
           litro = valor;
           litroMedio = media!/data.length;
@@ -133,9 +200,18 @@ class _GraphsPageState extends State<GraphsPage> {
                                     op = 0;
                                     control = 0;
                                     _controle = 0;
+                                    
+                                    op1 = true;
                                   });
                                 },
-                                child: Text('Dia'),
+                                
+                                child: Text('Dia',style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600),
+                                          color: op1 ? Colors.blue: Colors.black,
+                                    ),
+                                ),
                               ),
                             ),
                           ),
@@ -146,34 +222,46 @@ class _GraphsPageState extends State<GraphsPage> {
                                   op = 1;
                                   control = 0;
                                   _controle = 0;
+                                  
+                                  op1 = false;
                                 });
                               },
-                              child: Text('Mês'),
+                              child: Text('Mês', style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600),
+                                          color: op1 ? Colors.black: Colors.blue,
+                                    ),
+                                  ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    Expanded(
-                      child: Container(
-                        //margin: EdgeInsets.symmetric(horizontal: 10,),
-                        margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10,),
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              width: 2,
-                              color: Color(0xffEFEFEF),
-                            ),
-                            color: Colors.white),
-                        child: AspectRatio(
-                          aspectRatio: 1.6,
-                          child: Column(
-                            //crossAxisAlignment: CrossAxisAlignment.stretch,
-                            
-                            children: [
-                              Row(
+                    Container(
+                      //margin: EdgeInsets.symmetric(horizontal: 10,),
+                      height: MediaQuery.of(context).size.height*0.7,
+                      margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10,),
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            width: 2,
+                            color: Color(0xffEFEFEF),
+                          ),
+                          color: Colors.white),
+                      child: AspectRatio(
+                        aspectRatio: 1.6,
+                        child: Column(
+                          //crossAxisAlignment: CrossAxisAlignment.stretch,
+                          //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          
+                          children: [
+                            SizedBox(
+                              height: 100,
+                              child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                
                                 children: [
                                   IconButton(
                                       onPressed: () {
@@ -186,7 +274,7 @@ class _GraphsPageState extends State<GraphsPage> {
                                       },
                                       icon: Icon(Icons.arrow_back_ios_outlined)),
                                   Text(
-                                    'Setembro - 2024',
+                                    label,
                                     style: GoogleFonts.poppins(
                                       textStyle: TextStyle(
                                           fontSize: 12,
@@ -202,9 +290,9 @@ class _GraphsPageState extends State<GraphsPage> {
                                             print('to aqui $_controle');
                                           } else if (_controle != 2 && op == 1) {
                                             _controle++;
-                                            
+                                            control += 4;
                                           } 
-                      
+                                                    
                                           
                                         });
                                       },
@@ -212,184 +300,72 @@ class _GraphsPageState extends State<GraphsPage> {
                                           Icon(Icons.arrow_forward_ios_outlined)),
                                 ],
                               ),
+                            ),
+                            
+                    
+                            Expanded(
                               
-                      
-                              Expanded(
-                                child: BarChart(
-                                  BarChartData(
-                                    barTouchData: barTouchData,
-                                    titlesData: titlesData,
-                                    borderData: borderData,
-                                    barGroups:
-                                        barGroups(), // Chama a função para obter os grupos de barras
-                                    gridData: const FlGridData(show: false),
-                                    alignment: BarChartAlignment.spaceAround,
-                                    maxY:
-                                        20, // Pode ser ajustado conforme necessário
-                                  ),
+                              child: BarChart(
+                                BarChartData(
+                                  barTouchData: barTouchData,
+                                  titlesData: titlesData,
+                                  borderData: borderData,
+                                  barGroups:
+                                      barGroups(), // Chama a função para obter os grupos de barras
+                                  gridData: const FlGridData(show: false),
+                                  alignment: BarChartAlignment.spaceAround,
+                                  maxY:
+                                      op == 1 ? 250:10, // Pode ser ajustado conforme necessário
                                 ),
                               ),
-                              Container(
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text("Hoje"),
-                                        Text("R\$${valor?.toStringAsFixed(2)}"),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text("Média"),
-                                        Text("R\$${media?.toStringAsFixed(2)}"),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text("Total"),
-                                        Text("R\$${total?.toStringAsFixed(2)}"),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10,),
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              width: 2,
-                              color: Color(0xffEFEFEF),
                             ),
-                            color: Colors.white),
-                        child: AspectRatio(
-                          aspectRatio: 1.6,
-                          child: Column(
-                            //crossAxisAlignment: CrossAxisAlignment.stretch,
-                            
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            Container(
+                              child: Column(
                                 children: [
-                                  IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          if (_controle != 0) {
-                                            _controle--;
-                                            control -= 4;
-                                          }
-                                        });
-                                      },
-                                      icon: Icon(Icons.arrow_back_ios_outlined)),
-                                  Text(
-                                    'Setembro - 2024',
-                                    style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600),
-                                    ),
+                                  SizedBox(
+                                    height: 20,
                                   ),
-                                  IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          if (_controle != 7 && op == 0) {
-                                            _controle++;
-                                            control += 4;
-                                          } else if (_controle != 2 && op == 1) {
-                                            _controle++;
-                                          } 
-                      
-                                          print(_controle);
-                                        });
-                                      },
-                                      icon:
-                                          Icon(Icons.arrow_forward_ios_outlined)),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text("Hoje"),
+                                      Text("R\$${valor?.toStringAsFixed(2)}"),
+                                      Text("${litro?.toStringAsFixed(2)}L"),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text("Média"),
+                                      Text("R\$${media?.toStringAsFixed(2)}"),
+                                      Text("${litroMedio?.toStringAsFixed(2)}L"),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text("Total"),
+                                      Text("R\$${total?.toStringAsFixed(2)}"),
+                                      Text("${litroTotal?.toStringAsFixed(2)}L"),
+                                    ],
+                                  ),
                                 ],
                               ),
-                              
-                              
-                              Expanded(
-                                child: BarChart(
-                                  BarChartData(
-                                    barTouchData: barTouchData,
-                                    titlesData: titlesData,
-                                    borderData: borderData,
-                                    barGroups:
-                                        barGroups(), // Chama a função para obter os grupos de barras
-                                    gridData: const FlGridData(show: false),
-                                    alignment: BarChartAlignment.spaceAround,
-                                    maxY:
-                                        20, // Pode ser ajustado conforme necessário
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text("Hoje"),
-                                        Text("${litro?.toStringAsFixed(2)}L"),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text("Média"),
-                                        Text("${litroMedio?.toStringAsFixed(2)}L"),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text("Total"),
-                                        Text("${litroTotal?.toStringAsFixed(2)}L"),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
+                            )
+                          ],
                         ),
                       ),
                     ),
+                    
                   ],
                 ),
     );
@@ -566,19 +542,23 @@ class _GraphsPageState extends State<GraphsPage> {
 
     // Cria os grupos de barras com base nos dados obtidos do Firebase
     setState(() {
+      
       for (int i = 0; i < 4; i++) {
         // Assumindo 30 dias no mês
         String day =
             (i + 1 + control).toString(); // Formato de dia com 0 à esquerda
         int cvs = int.parse(day) + 1;
+        int mes = DateTime.now().month;
         var value =
             data[cvs.toString()] ?? 0; // Pega o valor ou 0 se não existir
 
         // Verifica e imprime o valor e seu tipo antes da conversão
         print("Valor antes da conversão: $value (Tipo: ${value.runtimeType})");
         double convertedValue = convertValue(value); // Converte o valor
+        //mediaMes[mes - 1] += convertedValue;
         print("Valor convertido: $convertedValue");
-        if ((day != "32" && op == 0) || op == 1) {
+        
+        if ((day != "32" && op == 0)) {
           groups.add(
           BarChartGroupData(
             x: i,
@@ -591,8 +571,19 @@ class _GraphsPageState extends State<GraphsPage> {
             showingTooltipIndicators: [0],
           ),
         );
-        } else {
-          
+        } if(op == 1){
+          groups.add(
+          BarChartGroupData(
+            x: i,
+            barRods: [
+              BarChartRodData(
+                toY: mediaMes[i + control], // Usa o valor convertido
+                gradient: _barsGradient,
+              )
+            ],
+            showingTooltipIndicators: [0],
+          ),
+        );
         }
         
       }
@@ -600,4 +591,6 @@ class _GraphsPageState extends State<GraphsPage> {
 
     return groups;
   }
+
+  
 }

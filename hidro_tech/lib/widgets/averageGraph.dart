@@ -15,7 +15,8 @@ class _AverageGraphState extends State<AverageGraph> {
   final DatabaseReference _databaseRef3 = FirebaseDatabase.instance.ref();
   late DatabaseReference daysRef;
   Map<String, dynamic> data3 = {};
-
+  List dados = [0.0,0.0,0.0,0.0,0.0,0.0,0.0];
+  var aux;
   @override
   void initState() {
     super.initState();
@@ -23,6 +24,7 @@ class _AverageGraphState extends State<AverageGraph> {
   }
 
   void setupListener() {
+    
     DateTime now = DateTime.now();
     String year = now.year.toString();
     String month = now.month.toString();
@@ -46,11 +48,20 @@ class _AverageGraphState extends State<AverageGraph> {
       }
     });
   }
-
+  int aux2 = 0;
   double convertValue(Object? value) {
     if (value is Map<Object?, Object?>) {
-      var innerValue = value['dado'];
-      return convertValue(innerValue);
+      if (aux2 == 0) {
+        var innerValue = value['dia_da_semana'];
+        aux2 = 1;
+        return convertValue(innerValue);
+      } else {
+        var innerValue = value['dado'];
+        aux2 = 0;
+        return convertValue(innerValue);
+      }
+      
+      
     }
 
     if (value == null) {
@@ -67,7 +78,32 @@ class _AverageGraphState extends State<AverageGraph> {
 
     if (value is String) {
       try {
-        return double.parse(value);
+        //arrumar aqui
+        switch (value) {
+          case "Segunda-feira":
+            dados[0] = dados[0] + convertValue(aux); 
+            break;
+          case "Terça-feira":
+            dados[1] = dados[1] + convertValue(aux); 
+            break;
+          case "Quarta-feira":
+            dados[2] = dados[2] + convertValue(aux); 
+            break;
+          case "Quinta-feira":
+            dados[3] = dados[3] + convertValue(aux); 
+            break;
+          case "Sexta-feira":
+            dados[4] = dados[4] + convertValue(aux); 
+            break;
+          case "Sábado":
+            dados[5] = dados[5] + convertValue(aux); 
+            break;
+          case "Domingo":
+            dados[6] = dados[6] + convertValue(aux); 
+            break;
+          default:
+        }
+        return 0;
       } catch (e) {
         print("Falha ao converter string para double: $value");
         return 0;
@@ -97,7 +133,7 @@ class _AverageGraphState extends State<AverageGraph> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Média de fluxo de água',
+                  'Consumo total de água do mês atual',
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
                   ),
@@ -113,7 +149,7 @@ class _AverageGraphState extends State<AverageGraph> {
                   barGroups: barGroups(),
                   gridData: const FlGridData(show: false),
                   alignment: BarChartAlignment.spaceAround,
-                  maxY: getMaxY(),
+                  maxY: 50,
                 ),
               ),
             ),
@@ -219,90 +255,49 @@ class _AverageGraphState extends State<AverageGraph> {
         end: Alignment.topCenter,
       );
 
-  double getMaxY() {
-    // Retorna o máximo valor de Y com base nos dados
-    double maxY = 0;
-    for (var day in data3.values) {
-      maxY = max(maxY, convertValue(day));
-    }
-    return maxY + 5; // Adiciona um buffer
-  }
 
   List<BarChartGroupData> barGroups() {
-    Map<String, double> dailyAverages = calculateDailyAverages();
+    List<BarChartGroupData> groups = [];
 
-    return List.generate(7, (index) {
-      String weekday = _getWeekdayName(index + 1);
-      return BarChartGroupData(
-        x: index,
-        barRods: [
-          BarChartRodData(
-            toY: dailyAverages[weekday] ?? 0,
-            gradient: _barsGradient,
-          )
-        ],
-        showingTooltipIndicators: [0],
-      );
-    });
-  }
-
-  Map<String, double> calculateDailyAverages() {
-    Map<String, double> sums = {
-      'Seg': 0,
-      'Ter': 0,
-      'Qua': 0,
-      'Qui': 0,
-      'Sex': 0,
-      'Sáb': 0,
-      'Dom': 0,
-    };
-    Map<String, int> counts = {
-      'Seg': 0,
-      'Ter': 0,
-      'Qua': 0,
-      'Qui': 0,
-      'Sex': 0,
-      'Sáb': 0,
-      'Dom': 0,
-    };
-
-    data3.forEach((key, value) {
-      int dayOfWeek = int.tryParse(key) ?? 0;
-      if (dayOfWeek >= 1 && dayOfWeek <= 7) {
-        String weekday = _getWeekdayName(dayOfWeek);
-        double convertedValue = convertValue(value);
-        sums[weekday] = sums[weekday]! + convertedValue;
-        counts[weekday] = counts[weekday]! + 1;
+    // Cria os grupos de barras com base nos dados obtidos do Firebase
+    setState(() {
+      dados = [0.0,0.0,0.0,0.0,0.0,0.0,0.0];
+      for (int i = 0; i < 30; i++) {
+        // Assumindo 30 dias no mês
+        String day =
+            (i + 1).toString(); // Formato de dia com 0 à esquerda
+        int cvs = int.parse(day) + 1;
+        var value =
+            data3[cvs.toString()] ?? 0; // Pega o valor ou 0 se não existir
+        aux = value;
+        // Verifica e imprime o valor e seu tipo antes da conversão
+        print("Valor antes da conversão: $value (Tipo: ${value.runtimeType})");
+        double convertedValue = convertValue(value); // Converte o valor
+        print("Valor convertido: $convertedValue");
+        
+        
+      }
+      for (var i = 0; i <= 6; i++) {
+        if (true) {
+          groups.add(
+          BarChartGroupData(
+            x: i,
+            barRods: [
+              BarChartRodData(
+                toY: dados[i], 
+                gradient: _barsGradient,
+              )
+            ],
+            showingTooltipIndicators: [0],
+          ),
+        );
+        } 
       }
     });
 
-    // Calcula a média
-    Map<String, double> averages = {};
-    sums.forEach((key, value) {
-      averages[key] = counts[key] == 0 ? 0 : value / counts[key]!;
-    });
-
-    return averages;
+    return groups;
   }
 
-  String _getWeekdayName(int dayOfWeek) {
-    switch (dayOfWeek) {
-      case 1:
-        return 'Seg';
-      case 2:
-        return 'Ter';
-      case 3:
-        return 'Qua';
-      case 4:
-        return 'Qui';
-      case 5:
-        return 'Sex';
-      case 6:
-        return 'Sáb';
-      case 7:
-        return 'Dom';
-      default:
-        return '';
-    }
-  }
+
+  
 }

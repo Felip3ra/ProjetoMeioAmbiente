@@ -61,7 +61,7 @@ class _HardwarestatusState extends State<Hardwarestatus> {
           
           try {
             setState(() {
-              ssid = snapshotValue ?? '';
+              ssid = convertValue(snapshotValue);
             });
           } catch (e) {
             setState(() {
@@ -133,7 +133,7 @@ class _HardwarestatusState extends State<Hardwarestatus> {
                 ),
               ),
               Text(
-                ssid != null ? ssid:'nada',
+                ssid ?? "nada",
                 style: GoogleFonts.inter(
                   textStyle: TextStyle(fontSize: 12),
                 ),
