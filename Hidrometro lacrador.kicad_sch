@@ -2101,16 +2101,6 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 80.01) (xy 80.01 80.01)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "44d9b4dd-263c-43c3-92d8-9a252d61857f")
-	)
-	(wire
-		(pts
 			(xy 140.97 46.99) (xy 143.51 46.99)
 		)
 		(stroke
@@ -2128,16 +2118,6 @@
 			(type default)
 		)
 		(uuid "73210456-36df-4f7b-ba8f-69c4670496fb")
-	)
-	(wire
-		(pts
-			(xy 73.66 77.47) (xy 80.01 77.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7c734283-0f1d-4243-afbd-fc166e5f3c93")
 	)
 	(wire
 		(pts
@@ -2251,6 +2231,16 @@
 	)
 	(wire
 		(pts
+			(xy 73.66 77.47) (xy 80.01 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dc827fb0-8bf7-4890-926f-0b0ed4eaea42")
+	)
+	(wire
+		(pts
 			(xy 109.22 40.64) (xy 109.22 43.18)
 		)
 		(stroke
@@ -2298,6 +2288,16 @@
 			(type default)
 		)
 		(uuid "f46e0240-6fe3-43d3-8725-427c561870e5")
+	)
+	(wire
+		(pts
+			(xy 73.66 74.93) (xy 80.01 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fc6e56e9-50d5-409d-9d72-9ea2596e35d8")
 	)
 	(rectangle
 		(start 175.26 15.24)
@@ -2349,7 +2349,7 @@
 	)
 	(global_label "I2C_SCL"
 		(shape input)
-		(at 73.66 77.47 180)
+		(at 73.66 74.93 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2359,7 +2359,7 @@
 		)
 		(uuid "0a357928-9da8-495c-bf09-64568a45c5f2")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 63.1153 77.47 0)
+			(at 63.1153 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2437,7 +2437,7 @@
 	)
 	(global_label "I2C_SDA"
 		(shape input)
-		(at 73.66 80.01 180)
+		(at 73.66 77.47 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2447,7 +2447,7 @@
 		)
 		(uuid "cd1aa6e3-9ad2-4bdc-951b-f21315813e72")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 63.0548 80.01 0)
+			(at 63.0548 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2555,7 +2555,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "27fd61ec-0164-4aae-a90e-8c0f0d642481")
-		(property "Reference" "LED-ON/OFF"
+		(property "Reference" "LED-ON/OFF1"
 			(at 159.0675 39.37 0)
 			(effects
 				(font
@@ -2607,7 +2607,7 @@
 		(instances
 			(project "Hidrometro lacrador"
 				(path "/81a4609d-2271-43ec-aee9-d7a68edf5121"
-					(reference "LED-ON/OFF")
+					(reference "LED-ON/OFF1")
 					(unit 1)
 				)
 			)

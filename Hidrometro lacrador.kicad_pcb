@@ -88,7 +88,7 @@
 	(net 6 "unconnected-(U1-GPIO16{slash}RX2-Pad25)")
 	(net 7 "I2C_SDA")
 	(net 8 "+5V")
-	(net 9 "unconnected-(U1-GPI22{slash}I2C_SCL-Pad17)")
+	(net 9 "Net-(LED-ON/OFF1-A)")
 	(net 10 "unconnected-(U1-GPIO39{slash}ADC3-Pad3)")
 	(net 11 "unconnected-(U1-GPIO14{slash}ADC16{slash}TOUCH6-Pad11)")
 	(net 12 "unconnected-(U1-GPIO27{slash}ADC17{slash}TOUCH7-Pad10)")
@@ -109,14 +109,14 @@
 	(net 27 "+3.3V")
 	(net 28 "GPIO-04")
 	(net 29 "unconnected-(U1-GPIO02{slash}ADC13-Pad27)")
-	(net 30 "Net-(LED-ON1-A)")
+	(net 30 "unconnected-(U1-GPI19{slash}VSPI_MISO-Pad21)")
 	(footprint "TerminalBlock:TerminalBlock_Altech_AK300-2_P5.00mm"
 		(layer "F.Cu")
 		(uuid "442d7a2e-2025-4212-9cde-1b46d3fe626d")
 		(at 31.0642 42.4218 -90)
 		(descr "Altech AK300 terminal block, pitch 5.0mm, 45 degree angled, see http://www.mouser.com/ds/2/16/PCBMETRC-24178.pdf")
 		(tags "Altech AK300 terminal block pitch 5.0mm")
-		(property "Reference" "LED-ON1"
+		(property "Reference" "LED-ON/OFF1"
 			(at -1.92 -6.99 90)
 			(layer "F.SilkS")
 			(uuid "5c7b4217-f01e-4737-8db1-9bf97e121805")
@@ -147,6 +147,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -159,6 +160,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -171,12 +173,13 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/27fd61ec-0164-4aae-a90e-8c0f0d642481")
-		(sheetname "Root")
+		(sheetname "Raiz")
 		(sheetfile "Hidrometro lacrador.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -1175,7 +1178,7 @@
 			(drill 1.32)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 30 "Net-(LED-ON1-A)")
+			(net 9 "Net-(LED-ON/OFF1-A)")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "811f575e-1af8-4f6d-b22f-d974fcb40ca0")
@@ -1199,7 +1202,7 @@
 		(descr "Altech AK300 terminal block, pitch 5.0mm, 45 degree angled, see http://www.mouser.com/ds/2/16/PCBMETRC-24178.pdf")
 		(tags "Altech AK300 terminal block pitch 5.0mm")
 		(property "Reference" "SensorDeFluxo1"
-			(at 5 -7.1 360)
+			(at 5 -7.1 0)
 			(layer "F.SilkS")
 			(uuid "793da12a-9fe9-4c01-80aa-864e3fd71e65")
 			(effects
@@ -1210,7 +1213,7 @@
 			)
 		)
 		(property "Value" "Screw_Terminal_01x03"
-			(at 4.95 7.3 360)
+			(at 4.95 7.3 0)
 			(layer "F.Fab")
 			(uuid "3704453b-6dc6-4eec-a0be-adf948caa0d9")
 			(effects
@@ -1229,6 +1232,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -1241,6 +1245,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -1253,12 +1258,13 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
 		(property ki_fp_filters "TerminalBlock*:*")
 		(path "/a39acc53-6a5d-46d5-9c80-f74cc872bbc8")
-		(sheetname "Root")
+		(sheetname "Raiz")
 		(sheetfile "Hidrometro lacrador.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -2504,7 +2510,7 @@
 			(uuid "25d2f4be-9127-4f5f-90c6-0ab22e0ca071")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 5 -2 360)
+			(at 5 -2 0)
 			(layer "F.Fab")
 			(uuid "0f3c5a54-253e-4330-a7be-b251e3e381c1")
 			(effects
@@ -2596,6 +2602,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -2608,6 +2615,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -2620,12 +2628,13 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
 		(property ki_fp_filters "TerminalBlock*:*")
 		(path "/82710b9e-4059-4aa5-bb2d-a31aea683b84")
-		(sheetname "Root")
+		(sheetname "Raiz")
 		(sheetfile "Hidrometro lacrador.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -4168,7 +4177,7 @@
 		(descr "Altech AK300 terminal block, pitch 5.0mm, 45 degree angled, see http://www.mouser.com/ds/2/16/PCBMETRC-24178.pdf")
 		(tags "Altech AK300 terminal block pitch 5.0mm")
 		(property "Reference" "Alimentação1"
-			(at -1.92 -6.99 360)
+			(at -1.92 -6.99 0)
 			(layer "F.SilkS")
 			(uuid "07347821-1286-4ea8-ae19-4ff17caa6e12")
 			(effects
@@ -4179,7 +4188,7 @@
 			)
 		)
 		(property "Value" "Screw_Terminal_01x02"
-			(at 2.78 7.75 360)
+			(at 2.78 7.75 0)
 			(layer "F.Fab")
 			(uuid "3693eeaf-5506-4186-886f-a6aa7475de30")
 			(effects
@@ -4198,6 +4207,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -4210,6 +4220,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -4222,12 +4233,13 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
 		(property ki_fp_filters "TerminalBlock*:*")
 		(path "/5ed3ae42-2699-4417-be92-228ebaf15e19")
-		(sheetname "Root")
+		(sheetname "Raiz")
 		(sheetfile "Hidrometro lacrador.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -5199,7 +5211,7 @@
 			(uuid "609cbc6e-4b9c-4b34-b58b-f0af67893386")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 2.5 -2 360)
+			(at 2.5 -2 0)
 			(layer "F.Fab")
 			(uuid "db090828-1e26-4029-b3c2-f4bf5ebdfdf7")
 			(effects
@@ -5250,7 +5262,7 @@
 		(descr "Resistor, Axial_DIN0414 series, Axial, Horizontal, pin pitch=20.32mm, 2W, length*diameter=11.9*4.5mm^2, http://www.vishay.com/docs/20128/wkxwrx.pdf")
 		(tags "Resistor Axial_DIN0414 series Axial Horizontal pin pitch 20.32mm 2W length 11.9mm diameter 4.5mm")
 		(property "Reference" "R1"
-			(at 10.16 -3.37 270)
+			(at 10.16 -3.37 -90)
 			(layer "F.SilkS")
 			(uuid "6fb01bd8-7b6d-4b7d-b085-3d2addca2a74")
 			(effects
@@ -5261,7 +5273,7 @@
 			)
 		)
 		(property "Value" "330"
-			(at 10.16 3.37 270)
+			(at 10.16 3.37 -90)
 			(layer "F.Fab")
 			(uuid "b44b1f34-6d76-4cbb-8fbf-f27dfa9cc018")
 			(effects
@@ -5280,6 +5292,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -5292,6 +5305,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -5304,12 +5318,13 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
 		(property ki_fp_filters "R_*")
 		(path "/fba981c7-b364-43c7-83f9-e56f903a4249")
-		(sheetname "Root")
+		(sheetname "Raiz")
 		(sheetfile "Hidrometro lacrador.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -5473,7 +5488,7 @@
 			(uuid "90de30a0-959d-41ff-be05-66d5cc63406e")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 10.16 0 270)
+			(at 10.16 0 -90)
 			(layer "F.Fab")
 			(uuid "e68cd123-56be-4592-8168-26eaa23ecb36")
 			(effects
@@ -5499,7 +5514,7 @@
 			(drill 1.2)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 30 "Net-(LED-ON1-A)")
+			(net 9 "Net-(LED-ON/OFF1-A)")
 			(pintype "passive")
 			(uuid "9c8b5e3c-c62c-4683-933b-00aa137db5d6")
 		)
@@ -5583,7 +5598,7 @@
 			)
 		)
 		(path "/4408fb3f-92df-4b64-b685-0df8bce411dd")
-		(sheetname "Root")
+		(sheetname "Raiz")
 		(sheetfile "Hidrometro lacrador.kicad_sch")
 		(attr smd)
 		(fp_rect
@@ -5802,7 +5817,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 9 "unconnected-(U1-GPI22{slash}I2C_SCL-Pad17)")
+			(net 5 "I2C_SCL")
 			(pinfunction "GPI22/I2C_SCL")
 			(pintype "bidirectional")
 			(uuid "fe00b7c9-8cd2-4e5c-844f-2a43edaa66d7")
@@ -5835,7 +5850,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 5 "I2C_SCL")
+			(net 7 "I2C_SDA")
 			(pinfunction "GPI21/I2C_SDA")
 			(pintype "bidirectional")
 			(uuid "25139ec2-b4dc-433e-9bb2-c5f9ac9c851d")
@@ -5846,7 +5861,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 7 "I2C_SDA")
+			(net 30 "unconnected-(U1-GPI19{slash}VSPI_MISO-Pad21)")
 			(pinfunction "GPI19/VSPI_MISO")
 			(pintype "bidirectional")
 			(uuid "428c2add-a9e2-4b84-9354-b9560c69a147")
@@ -6029,52 +6044,12 @@
 			(extension_offset 0.5) keep_text_aligned)
 	)
 	(segment
-		(start 50.8508 86.6394)
-		(end 50.8508 55.6768)
-		(width 1.2)
-		(layer "B.Cu")
-		(net 5)
-		(uuid "02e38896-e9de-4d5a-a1b9-c5d602ac42b6")
-	)
-	(segment
-		(start 60.75 45.7776)
-		(end 65.3364 45.7776)
-		(width 1.2)
-		(layer "B.Cu")
-		(net 5)
-		(uuid "3344c172-92d8-4902-a136-cb469d16bc29")
-	)
-	(segment
-		(start 58.6918 87.5106)
-		(end 57.531 88.6714)
-		(width 1.2)
-		(layer "B.Cu")
-		(net 5)
-		(uuid "6bfc0368-51df-4d26-9aa1-c1898883eee3")
-	)
-	(segment
-		(start 50.8508 55.6768)
-		(end 60.75 45.7776)
-		(width 1.2)
-		(layer "B.Cu")
-		(net 5)
-		(uuid "8dadcb9b-a83e-4e25-be72-90e72212d25c")
-	)
-	(segment
-		(start 57.531 88.6714)
-		(end 52.8828 88.6714)
-		(width 1.2)
-		(layer "B.Cu")
-		(net 5)
-		(uuid "951b92a4-7e4c-45fb-bab6-ba3ed9d4cc69")
-	)
-	(segment
 		(start 58.6918 84.3534)
 		(end 58.6918 87.5106)
 		(width 1.2)
 		(layer "B.Cu")
 		(net 5)
-		(uuid "ba672c25-c65e-4a65-beae-b52fdfb2b07b")
+		(uuid "18759c16-5669-4fd4-b61a-44a8793e3a91")
 	)
 	(segment
 		(start 52.8828 88.6714)
@@ -6082,31 +6057,71 @@
 		(width 1.2)
 		(layer "B.Cu")
 		(net 5)
-		(uuid "c5934811-2762-4e43-84e0-671872832080")
+		(uuid "2a0bbc14-c6e9-4795-96a9-28d72ba4d240")
 	)
 	(segment
-		(start 53.6918 56.2648)
+		(start 59.8424 38.1576)
+		(end 65.3364 38.1576)
+		(width 1.2)
+		(layer "B.Cu")
+		(net 5)
+		(uuid "9029d3e8-b26e-40c0-8402-0a41cf7a074a")
+	)
+	(segment
+		(start 58.6918 87.5106)
+		(end 57.531 88.6714)
+		(width 1.2)
+		(layer "B.Cu")
+		(net 5)
+		(uuid "9556c215-8bf3-40f3-804a-d2648b81d8b3")
+	)
+	(segment
+		(start 50.8508 86.6394)
+		(end 50.8508 47.1492)
+		(width 1.2)
+		(layer "B.Cu")
+		(net 5)
+		(uuid "a2f0ac4d-542c-4d60-ab6a-7ca9b2a1a765")
+	)
+	(segment
+		(start 50.8508 47.1492)
+		(end 59.8424 38.1576)
+		(width 1.2)
+		(layer "B.Cu")
+		(net 5)
+		(uuid "adfa0448-0d00-4c3b-bfc8-29a10c69babf")
+	)
+	(segment
+		(start 57.531 88.6714)
+		(end 52.8828 88.6714)
+		(width 1.2)
+		(layer "B.Cu")
+		(net 5)
+		(uuid "ca42a6d6-232e-4fc2-b575-0fe295d7a2e6")
+	)
+	(segment
+		(start 53.6918 52.3082)
 		(end 53.6918 84.3534)
 		(width 1.2)
 		(layer "B.Cu")
 		(net 7)
-		(uuid "5562402b-b34e-45d3-9e69-be8e91e257ee")
+		(uuid "40d4ce9e-d1b1-49fe-b0e1-119198d81434")
 	)
 	(segment
-		(start 65.3364 48.3176)
-		(end 61.639 48.3176)
+		(start 60.2224 45.7776)
+		(end 53.6918 52.3082)
 		(width 1.2)
 		(layer "B.Cu")
 		(net 7)
-		(uuid "9889b9a4-2635-4340-9f95-a7e8dd10c9fa")
+		(uuid "a172911a-2349-4551-9988-0f948a81bcd8")
 	)
 	(segment
-		(start 61.639 48.3176)
-		(end 53.6918 56.2648)
+		(start 65.3364 45.7776)
+		(end 60.2224 45.7776)
 		(width 1.2)
 		(layer "B.Cu")
 		(net 7)
-		(uuid "e20da960-b9d3-4f62-b903-cc6d4c01196f")
+		(uuid "eb63c894-a2c8-4dcc-9901-6d6a25e870a2")
 	)
 	(segment
 		(start 47.498 69.0372)
@@ -6267,6 +6282,62 @@
 		(layer "B.Cu")
 		(net 8)
 		(uuid "fe487bbd-47aa-47bb-ab13-273e5508b7b0")
+	)
+	(segment
+		(start 39.7764 29.464)
+		(end 69.088 29.464)
+		(width 1.2)
+		(layer "B.Cu")
+		(net 9)
+		(uuid "4362ef8d-8584-446a-88f6-6879d6008664")
+	)
+	(segment
+		(start 74.5744 34.9504)
+		(end 74.5744 40.7924)
+		(width 1.2)
+		(layer "B.Cu")
+		(net 9)
+		(uuid "557ab35e-223a-4e34-9b0b-b39e40050420")
+	)
+	(segment
+		(start 36.6776 45.2628)
+		(end 36.6776 32.5628)
+		(width 1.2)
+		(layer "B.Cu")
+		(net 9)
+		(uuid "56188781-d6bd-4863-8216-120324c2b114")
+	)
+	(segment
+		(start 36.6776 32.5628)
+		(end 39.7764 29.464)
+		(width 1.2)
+		(layer "B.Cu")
+		(net 9)
+		(uuid "635750a8-61b9-46fd-a1db-e4a3b8705e2f")
+	)
+	(segment
+		(start 34.5186 47.4218)
+		(end 36.6776 45.2628)
+		(width 1.2)
+		(layer "B.Cu")
+		(net 9)
+		(uuid "6d9f41ca-9030-4461-8e7a-9c7779b4adff")
+	)
+	(segment
+		(start 31.0642 47.4218)
+		(end 34.5186 47.4218)
+		(width 1.2)
+		(layer "B.Cu")
+		(net 9)
+		(uuid "84ab6100-c002-4a68-8a72-fcb38b98a39f")
+	)
+	(segment
+		(start 69.088 29.464)
+		(end 74.5744 34.9504)
+		(width 1.2)
+		(layer "B.Cu")
+		(net 9)
+		(uuid "f6157203-8404-44a3-9410-c0219e55e92c")
 	)
 	(segment
 		(start 31.0642 42.4218)
@@ -6475,61 +6546,5 @@
 		(layer "B.Cu")
 		(net 28)
 		(uuid "e81e8ef1-de46-49b3-bad2-bf3a2385e97e")
-	)
-	(segment
-		(start 39.7764 29.464)
-		(end 69.088 29.464)
-		(width 1.2)
-		(layer "B.Cu")
-		(net 30)
-		(uuid "4362ef8d-8584-446a-88f6-6879d6008664")
-	)
-	(segment
-		(start 74.5744 34.9504)
-		(end 74.5744 40.7924)
-		(width 1.2)
-		(layer "B.Cu")
-		(net 30)
-		(uuid "557ab35e-223a-4e34-9b0b-b39e40050420")
-	)
-	(segment
-		(start 36.6776 45.2628)
-		(end 36.6776 32.5628)
-		(width 1.2)
-		(layer "B.Cu")
-		(net 30)
-		(uuid "56188781-d6bd-4863-8216-120324c2b114")
-	)
-	(segment
-		(start 36.6776 32.5628)
-		(end 39.7764 29.464)
-		(width 1.2)
-		(layer "B.Cu")
-		(net 30)
-		(uuid "635750a8-61b9-46fd-a1db-e4a3b8705e2f")
-	)
-	(segment
-		(start 34.5186 47.4218)
-		(end 36.6776 45.2628)
-		(width 1.2)
-		(layer "B.Cu")
-		(net 30)
-		(uuid "6d9f41ca-9030-4461-8e7a-9c7779b4adff")
-	)
-	(segment
-		(start 31.0642 47.4218)
-		(end 34.5186 47.4218)
-		(width 1.2)
-		(layer "B.Cu")
-		(net 30)
-		(uuid "84ab6100-c002-4a68-8a72-fcb38b98a39f")
-	)
-	(segment
-		(start 69.088 29.464)
-		(end 74.5744 34.9504)
-		(width 1.2)
-		(layer "B.Cu")
-		(net 30)
-		(uuid "f6157203-8404-44a3-9410-c0219e55e92c")
 	)
 )
